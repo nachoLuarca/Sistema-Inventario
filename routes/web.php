@@ -5,6 +5,7 @@ use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+
 Route::get('/', function(){ return redirect()->route('dashboard'); });
 
 # Auth routes (si manual)
