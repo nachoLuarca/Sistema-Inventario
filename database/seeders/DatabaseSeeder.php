@@ -1,23 +1,31 @@
 <?php
-
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\StockMovement;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name'=>'Admin',
+            'email'=>'admin@example.com',
+            'password'=>bcrypt('secret123')
         ]);
+
+        Category::factory(5)->create();
+
+        Product::factory(50)->create()->each(function($p){
+            StockMovement::create([
+                'product_id'=>$p->id,
+                'quantity'=>rand(0,50),
+                'type'=>'in',
+                'reference'=>'seed',
+            ]);
+        });
     }
 }
