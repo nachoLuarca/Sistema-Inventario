@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    /**
-     * Constructor:
-     * Asegura que solo usuarios autenticados accedan al dashboard.
-     */
-    public function __construct()
+    protected $dashboardService;
+
+    public function __construct(DashboardService $dashboardService)
     {
         $this->middleware('auth');
+        $this->dashboardService = $dashboardService;
     }
 
-    /**
-     * Muestra el panel principal del sistema.
-     */
     public function index()
     {
-        return view('dashboard');
+        $data = $this->dashboardService->getDashboardData();
+
+        return view('dashboard', $data);
     }
 }
